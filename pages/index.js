@@ -6,12 +6,14 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
 	const [currentWeather, setCurrentWeather] = useState({})
 	const [weatherMessage, setWeatherMessage] = useState('Loading Weather...')
+	const [zipCode, setZipCode] = useState('74133');
+	const [newZipCode, setNewZipCode] = useState(null);
 
 	const getWeatherData = async (zip_code) => {
 		const currentWeatherReq =
-			'https://api.weatherapi.com/v1/forecast.json?key=f0713ae0445f46e1b1c205427222207' +
+			'https://api.weatherapi.com/v1/forecast.json?key=' + process.env.NEXT_PUBLIC_API_KEY +
 			'&q=' +
-			zip_code +
+			zipCode +
 			'&days=1&aqi=no&alerts=no'
 
 		const currentWeatherRes = await fetch(currentWeatherReq)
@@ -24,18 +26,46 @@ export default function Home() {
 		return kelvin.toFixed(2)
 	}
 
-	useEffect(() => {
-		const setup = async () => {
-			await getWeatherData('74133')
+
+	const updateZipCode = (e) => {
+		//suppress the default behavior of the form
+		e.preventDefault()
+		const zip = parseInt(newZipCode);
+		console.log(zip);
+		console.log("newZipCode: " + newZipCode);
+		console.log(zip.toString().length);
+		//validate zip code length
+		if (zip.toString().length == 5) {
+			//validate zip code is numeric
+			if (!isNaN(zip)) {
+				console.log(zip);
+				console.log("newZipCode: " + newZipCode);
+				setZipCode(zip)
+			}
 		}
+	}
+
+	const getNewZipCode = (e) => {
+		setNewZipCode(e.target.value);
+	}
+
+	const setup = async () => {
+		setNewZipCode("test")
+		await getWeatherData()
+	}
+
+	useEffect(() => {
 		setup()
 	}, [])
+
+	useEffect(() => {
+		setup();
+	}, [zipCode])
 
 	useEffect(() => {
 		if (currentWeather.location != null) {
 			setWeatherMessage(
 				<>
-					{' '}
 					<p className={styles.p}>
 						The current temperature in {currentWeather.location.name},{' '}
 						{currentWeather.location.region} is{' '}
@@ -59,6 +89,8 @@ export default function Home() {
 							kelvins.
 						</b>
 					</p>
+
+					{(currentWeather.current.temp_c < currentWeather.forecast.forecastday[0].day.mintemp_c || currentWeather.current.temp_c > currentWeather.forecast.forecastday[0].day.maxtemp_c) ? <p className={styles.p}>Something seems off here...</p> : null}
 				</>
 			)
 		}
@@ -72,7 +104,12 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className={styles.main}>{weatherMessage}</main>
+			<main className={styles.main}>
+				<form className={styles.inputDiv}>
+					<input className={styles.input} name="zipInput" type="text" onChange={getNewZipCode}></input>
+					<button className={styles.button} onClick={updateZipCode}>update zip code</button>
+				</form>
+				{weatherMessage}</main>
 		</div>
 	)
 }

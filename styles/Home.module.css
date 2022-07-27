@@ -116,13 +116,16 @@
 }
 
 @media (prefers-color-scheme: dark) {
+
 	.card,
 	.footer {
 		border-color: #222;
 	}
+
 	.code {
 		background: #111;
 	}
+
 	.logo img {
 		filter: invert(1);
 	}
@@ -131,4 +134,14 @@
 .p {
 	text-align: center;
 	margin: 20px auto;
+}
+
+.input,
+.button {
+	margin: 0 10px;
+}
+
+.inputDiv {
+	margin: 0 auto;
+	text-align: center;
 }
