@@ -19,7 +19,6 @@ export default function Home() {
 		console.log(currentWeatherReq)
 		const currentWeatherJSON = await currentWeatherRes.json()
 		setCurrentWeather(currentWeatherJSON)
-		console.log(currentWeather)
 	}
 
 	const kelvinize = (temp_c) => {
