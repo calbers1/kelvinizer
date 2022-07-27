@@ -9,8 +9,7 @@ export default function Home() {
 
 	const getWeatherData = async (zip_code) => {
 		const currentWeatherReq =
-			'https://api.weatherapi.com/v1/forecast.json?key=' +
-			process.env.NEXT_PUBLIC_API_KEY +
+			'https://api.weatherapi.com/v1/forecast.json?key=f0713ae0445f46e1b1c205427222207' +
 			'&q=' +
 			zip_code +
 			'&days=1&aqi=no&alerts=no'
@@ -37,23 +36,23 @@ export default function Home() {
 			setWeatherMessage(
 				<>
 					{' '}
-					<p className="p">
+					<p className={styles.p}>
 						The current temperature in {currentWeather.location.name},{' '}
 						{currentWeather.location.region} is{' '}
 						<b>{kelvinize(currentWeather.current.temp_c)} kelvins.</b>
 					</p>
-					<p className="p">
+					<p className={styles.p}>
 						It feels like{' '}
 						<b>{kelvinize(currentWeather.current.feelslike_c)} kelvins.</b>
 					</p>
-					<p className="p">
+					<p className={styles.p}>
 						The high will be{' '}
 						<b>
 							{kelvinize(currentWeather.forecast.forecastday[0].day.maxtemp_c)}{' '}
 							kelvins.
 						</b>
 					</p>
-					<p className="p">
+					<p className={styles.p}>
 						The low will be{' '}
 						<b>
 							{kelvinize(currentWeather.forecast.forecastday[0].day.mintemp_c)}{' '}
