@@ -10,15 +10,12 @@ export default function Home() {
 	const getWeatherData = async (zip_code) => {
 		const currentWeatherReq =
 			'https://api.weatherapi.com/v1/forecast.json?key=' +
-			process.env.API_KEY +
+			process.env.NEX_PUBLIC_API_KEY +
 			'&q=' +
 			zip_code +
 			'&days=1&aqi=no&alerts=no'
 
-		console.log(process.env.API_KEY)
-		console.log(process.env)
 		const currentWeatherRes = await fetch(currentWeatherReq)
-		console.log(currentWeatherReq)
 		const currentWeatherJSON = await currentWeatherRes.json()
 		setCurrentWeather(currentWeatherJSON)
 	}
@@ -37,11 +34,6 @@ export default function Home() {
 
 	useEffect(() => {
 		if (currentWeather.location != null) {
-			console.log('current weather: ' + JSON.stringify(currentWeather, 0, 2))
-			console.log(
-				'pretty: ' +
-					JSON.stringify(currentWeather.forecast.forecastday[0].day, 0, 2)
-			)
 			setWeatherMessage(
 				<>
 					{' '}
