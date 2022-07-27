@@ -9,7 +9,7 @@ export default function Home() {
 
 	const getWeatherData = async (zip_code) => {
 		const currentWeatherReq =
-			'http://api.weatherapi.com/v1/forecast.json?key=' +
+			'https://api.weatherapi.com/v1/forecast.json?key=' +
 			process.env.API_KEY +
 			'&q=' +
 			zip_code +
