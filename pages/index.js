@@ -15,6 +15,8 @@ export default function Home() {
 			zip_code +
 			'&days=1&aqi=no&alerts=no'
 
+		console.log(process.env.API_KEY)
+		console.log(process.env)
 		const currentWeatherRes = await fetch(currentWeatherReq)
 		console.log(currentWeatherReq)
 		const currentWeatherJSON = await currentWeatherRes.json()
