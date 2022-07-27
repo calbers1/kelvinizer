@@ -37,23 +37,23 @@ export default function Home() {
 			setWeatherMessage(
 				<>
 					{' '}
-					<p class="p">
+					<p className="p">
 						The current temperature in {currentWeather.location.name},{' '}
 						{currentWeather.location.region} is{' '}
 						<b>{kelvinize(currentWeather.current.temp_c)} kelvins.</b>
 					</p>
-					<p class="p">
+					<p className="p">
 						It feels like{' '}
 						<b>{kelvinize(currentWeather.current.feelslike_c)} kelvins.</b>
 					</p>
-					<p class="p">
+					<p className="p">
 						The high will be{' '}
 						<b>
 							{kelvinize(currentWeather.forecast.forecastday[0].day.maxtemp_c)}{' '}
 							kelvins.
 						</b>
 					</p>
-					<p class="p">
+					<p className="p">
 						The low will be{' '}
 						<b>
 							{kelvinize(currentWeather.forecast.forecastday[0].day.mintemp_c)}{' '}
